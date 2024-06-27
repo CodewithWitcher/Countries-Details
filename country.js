@@ -12,6 +12,7 @@ const languages = document.querySelector('.Languages')
 const bordersCountry = document.querySelector('.border-countries')
 
 const themeChanger = document.querySelector('.theme-changer')
+const body = document.body
 
 fetch('./data.json')
     .then((res) => res.json())
@@ -58,7 +59,21 @@ fetch('./data.json')
             });
         }
     })
-    themeChanger.addEventListener('click',() =>{
-        document.body.classList.toggle('dark')
+    if (localStorage.getItem("darkMode") === "enabled") {
+        body.classList.add("dark")
+        inputBox.classList.add('dark')
+    }
+    
+    themeChanger.addEventListener('click', () => {
+        if (body.classList.contains('dark')) {
+            body.classList.remove("dark");
+            inputBox.classList.remove('dark')
+            localStorage.setItem("darkMode", "disabled")
+        }
+        else {
+            body.classList.add("dark")
+            inputBox.classList.add('dark')
+            localStorage.setItem("darkMode", "enabled")
+        }
     })
 
